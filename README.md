@@ -39,7 +39,7 @@ Just copy & paste `Net_arch.forward` method to  `net_arch_test.py` and add `asse
 ### Install requirements
 
 - python3 (3.6, 3.7, 3.8 is tested)
-- Support the latest version of PyTorch
+- Support the latest version of PyTorch(1.13), if you use older version of pytorch, may meet the error of GPU usage on mac
 - `conda env create -f environment.yml` for install develop dependencies (this requires python 3.6 and above because of black)`
 
 ### Config

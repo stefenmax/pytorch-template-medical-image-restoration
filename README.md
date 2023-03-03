@@ -19,6 +19,7 @@ Perhaps the world most convient pytorch template for medical image restoration
 - Distributed Learning using Distributed Data Parallel is supported, can using multiple GPU for training
 - Using scrpits to queue the tasks
 - Allow for GPU usage on M1 mac
+- Support npy and mat format
 
 ## Code Structure
 

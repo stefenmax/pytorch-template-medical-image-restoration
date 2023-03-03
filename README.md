@@ -1,4 +1,4 @@
-# pytorch-template-medical-image-restoration
+# Pytorch-template-medical-image-restoration
 Perhaps the world most convient pytorch template for medical image restoration
 <div align="center">
     <img src="assets/icon.png"/>

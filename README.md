@@ -7,7 +7,6 @@ Perhaps the world most convient pytorch template for medical image restoration
     </h1></code>
     <p>
         <img src="https://img.shields.io/github/license/stefenmax/pytorch-template-medical-image-restoration"/>
-        <a href="https://pycqa.github.io/isort/"><img src="https://img.shields.io/badge/%20imports-isort-%231674b1?style=flat&labelColor=ef8336"/></a>
     </p>
 </div>
 

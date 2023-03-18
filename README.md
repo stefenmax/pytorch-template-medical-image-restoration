@@ -110,7 +110,7 @@ python main.py --template AAPM --save EDSR-test --scale 1 --reset --save_results
 
 **Update log**
 * Mar 18, 2023
-  * Support torch2.0 nad wandb
+  * Support torch2.0 and wandb
 ## Inspired by
 
 I referred [EDSR's official implementation](https://github.com/sanghyun-son/EDSR-PyTorch) when crafting this template, so don't be surprised if you find some code is similar.

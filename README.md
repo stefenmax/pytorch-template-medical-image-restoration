@@ -14,9 +14,21 @@ Perhaps the world most convenient pytorch template for medical image restoration
   * Now the master branch supports PyTorch 2.0 by default.
   * You only need to install the related environment torch2_0.yml file.
 
+## Dependencies
+* Python 3.6
+* PyTorch >= 1.13.0
+* numpy
+* skimage
+* imageio
+* matplotlib
+* tqdm
+* tensorboardX/ wandb
+
+
+
 ## Feature
 
-- TensorBoardX support
+- TensorBoardX /[wandb](https://www.wandb.com/) support (suggest using wandb, tensorboard is not well tested)
 - Training state and network checkpoint saving, loading
     - Training state includes not only network weights, but also optimizer, step, epoch.
     - Checkpoint includes the last and best one(based on calculation of PSNR). This could be used for inference. 
@@ -96,6 +108,9 @@ Just copy & paste `Net_arch.forward` method to  `net_arch_test.py` and add `asse
 - `using numpy
 python main.py --template AAPM --save EDSR-test --scale 1 --reset --save_results --patch_size 64 --ext img --n_GPUs 1 --data_range '1-5/6-7' --loss '1*L1' --dir_data '../dataset_npy/' --batch_size 1 --epochs 100 --using_npy or --using_mat`
 
+**Update log**
+* Mar 18, 2023
+  * Support torch2.0 nad wandb
 ## Inspired by
 
 I referred [EDSR's official implementation](https://github.com/sanghyun-son/EDSR-PyTorch) when crafting this template, so don't be surprised if you find some code is similar.

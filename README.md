@@ -44,7 +44,7 @@ Just copy & paste `Net_arch.forward` method to  `net_arch_test.py` and add `asse
 ### Install requirements
 
 - python3 (3.6, 3.7, 3.8, 3.9, 3.10 is tested)
-- Support the latest version of PyTorch(1.13), if you use older version of pytorch, may meet the error of GPU usage on mac
+- Support the version of PyTorch(1.13), if you use older version of pytorch than that, may meet the error of GPU usage on Mac
 - `conda env create -f torch1_13.yml` for install develop dependencies (this requires python 3.6 and above because of black)`
 
 ### Config

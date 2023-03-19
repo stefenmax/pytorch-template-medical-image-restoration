@@ -3,7 +3,7 @@ Perhaps the world most convenient pytorch template for medical image restoration
 <div align="center">
     <img src="assets/icon.png"/>
     <h1><code>
-        Pytorch Project Template
+    Pytorch Project Template
     </h1></code>
     <p>
         <img src="https://img.shields.io/github/license/stefenmax/pytorch-template-medical-image-restoration"/>

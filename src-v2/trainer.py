@@ -21,7 +21,7 @@ class Trainer():
         self.optimizer = utility.make_optimizer(args, self.model)
         self.log_dir = self.ckp.get_path('tensorboard_logs')
         if self.args.start_wandb:
-            wandb.init(project=args.save, entity="stefen")
+            wandb.init(project=args.save, entity="Your own entity")
         self.current_test_iteration = 0
         utility.count_parameters(self.model, 'This model')
         if self.args.load != '':

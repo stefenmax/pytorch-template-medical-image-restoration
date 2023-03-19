@@ -46,7 +46,7 @@ Perhaps the world most convenient pytorch template for medical image restoration
 - `experiment` dir: Your experiment result will save here.
 - `models` dir: Put your checkpoint here to easily test the network.
 - `src` dir:
-    - 'data' dir : dataloader and dataset codes are here. 
+    - `data` dir : dataloader and dataset codes are here. 
     - `loss` dir is for loss function design.
     - `model` dir is for wrapping network architecture. **You can put your own network here. **
     - `trainer.py` file: this is for setting up and iterating epoch.
@@ -60,9 +60,9 @@ Perhaps the world most convenient pytorch template for medical image restoration
 - `conda env create -f torch1_13.yml` for install develop dependencies (this requires python 3.6 and above because of black)`
 
 
-### Code lint
+### Code init
 
-1. `conda env create -f environment.yml` for install develop dependencies (this requires python 3.6 and above because of black)
+`conda env create -f environment.yml` for install develop dependencies (this requires python 3.6 and above because of black)
 
 
 ## Train example code
@@ -76,6 +76,10 @@ python main.py --template AAPM --save EDSR-test --scale 1 --reset --save_results
 * Mar 18, 2023
   * Support torch2.0 and wandb
   * Add RIDNet to model dir
+
+
+**Future scopes**
+* Support dcm format data
 ## Inspired by
 
 I referred [EDSR's official implementation](https://github.com/sanghyun-son/EDSR-PyTorch) when crafting this template, so don't be surprised if you find some code is similar.

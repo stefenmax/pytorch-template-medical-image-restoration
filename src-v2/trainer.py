@@ -7,6 +7,7 @@ import numpy as np
 import torch
 import torch.nn.utils as utils
 from tqdm import tqdm
+import wandb
 
 class Trainer():
     def __init__(self, args, loader, my_model, my_loss, ckp):
@@ -19,6 +20,9 @@ class Trainer():
         self.loss = my_loss
         self.optimizer = utility.make_optimizer(args, self.model)
         self.log_dir = self.ckp.get_path('tensorboard_logs')
+        if self.args.start_wandb:
+            wandb.init(project=args.save, entity="stefen")
+        self.current_test_iteration = 0
         utility.count_parameters(self.model, 'This model')
         if self.args.load != '':
             self.optimizer.load(ckp.dir, epoch=len(ckp.log))
@@ -43,6 +47,7 @@ class Trainer():
         timer_data, timer_model = utility.timer(), utility.timer()
         # TEMP
         self.loader_train.dataset.set_scale(0)
+        losses = []
         for batch, (lr, hr, _,) in enumerate(self.loader_train):
             lr, hr = self.prepare(lr, hr)
             lr = lr[:, :3, :, :] # Choose the RGB channel
@@ -52,6 +57,7 @@ class Trainer():
             self.optimizer.zero_grad()
             sr = self.model(lr, 0)
             loss = self.loss(sr, hr)
+            losses.append(loss.item())
             if self.args.start_tensorboard:
                 writer.add_scalar('loss', loss, batch)
             loss.backward()
@@ -71,9 +77,11 @@ class Trainer():
                     self.loss.display_loss(batch),
                     timer_model.release(),
                     timer_data.release()))
-
             timer_data.tic()
-
+        # Log the loss for this batch to Wandb
+        avg_loss = np.mean(losses)
+        if self.args.start_wandb:
+            wandb.log({"train_loss": avg_loss}, step=epoch)
         self.loss.end_log(len(self.loader_train))
         self.error_last = self.loss.log[-1, -1]
         self.optimizer.schedule()
@@ -89,9 +97,12 @@ class Trainer():
             torch.zeros(1, len(self.loader_test), len(self.scale))
         )
         self.model.eval()
-        ssims = []
         timer_test = utility.timer()
         if self.args.save_results: self.ckp.begin_background()
+        test_count = 0
+        ssimes = []
+        psnres = []
+        sr_list = []
         for idx_data, d in enumerate(self.loader_test):
             for idx_scale, scale in enumerate(self.scale):
                 d.dataset.set_scale(idx_scale)
@@ -106,19 +117,22 @@ class Trainer():
                         max_value = "{:.4f}".format(max_value.item())
                         max_value = float(max_value)
                         ssim = utility.calc_ssim(sr, hr, max_value)
-                        self.ckp.log[-1, idx_data, idx_scale] += utility.calc_psnr(
-                        sr, hr, scale, max_value, dataset=d)
+                        psnr = utility.calc_psnr(sr, hr, scale, max_value, dataset=d) 
+                        self.ckp.log[-1, idx_data, idx_scale] += psnr
                     else:
                         sr = utility.quantize(sr, self.args.rgb_range)
                         ssim = utility.calc_ssim(sr, hr, self.args.rgb_range)
-                        self.ckp.log[-1, idx_data, idx_scale] += utility.calc_psnr(
-                        sr, hr, scale, self.args.rgb_range, dataset=d)
+                        psnr = utility.calc_psnr(sr, hr, scale, self.args.rgb_range, dataset=d)
+                        self.ckp.log[-1, idx_data, idx_scale] += psnr
                     if self.args.start_tensorboard:
                         writer.add_images('SR images', sr, idx_scale)
 #                    save_list = [sr, lr, hr]
+                    ssimes.append(ssim)
+                    psnres.append(psnr)
+                    avg_ssim = np.mean(ssimes)
+                    avg_psnr = np.mean(psnres)
                     save_list = [sr]
-
-                    ssims.append(ssim)
+                    sr_list.append(sr)                  
                     if self.args.save_gt:
                         save_list.extend([lr, hr])
 
@@ -131,7 +145,7 @@ class Trainer():
                         d.dataset.name,
                         scale,
                         self.ckp.log[-1, idx_data, idx_scale],
-                        np.mean(ssims),
+                        avg_ssim,
                         best[0][idx_data, idx_scale],
                         best[1][idx_data, idx_scale] + 1
                     )
@@ -139,7 +153,10 @@ class Trainer():
 
         self.ckp.write_log('Forward: {:.2f}s\n'.format(timer_test.toc()))
         self.ckp.write_log('Saving...')
-
+        if self.args.start_wandb:
+            wandb.log({"SSIM": avg_ssim,
+                       "PSNR": avg_psnr,
+                       "samples": [wandb.Image(sample) for sample in sr_list]})
         if self.args.save_results:
             self.ckp.end_background()
 
@@ -151,7 +168,7 @@ class Trainer():
         )
 
         torch.set_grad_enabled(True)
-
+         
     def prepare(self, *args):
         if self.args.cpu:
             device = torch.device('cpu')

@@ -1,3 +1,6 @@
+## ICCV-2019-Real Image Denoising with Feature Attention
+## https://arxiv.org/abs/1904.07396
+
 import torch.nn as nn
 from model import ops
 from model import common

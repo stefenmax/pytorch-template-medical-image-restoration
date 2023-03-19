@@ -58,3 +58,9 @@ def set_template(args):
         args.n_resblocks = 32
         args.n_feats = 256
         args.res_scale = 0.1
+    if args.template.find('RID') >= 0:
+        args.data_train = 'AAPM'
+        args.data_test = 'AAPM'
+        args.model = 'ridnet'
+        args.n_feats = 64
+

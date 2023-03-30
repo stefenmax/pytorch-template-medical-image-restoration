@@ -78,7 +78,7 @@ class checkpoint():
         os.makedirs(self.get_path('model'), exist_ok=True)
         
         for d in args.data_test:
-            os.makedirs(self.get_path('results-{}'.format(d)), exist_ok=True)
+            os.makedirs(self.get_path('results-{}'.format(self.args.save)), exist_ok=True)
         open_type = 'a' if os.path.exists(self.get_path('log.txt'))else 'w'
         if args.start_tensorboard:
             os.makedirs(self.get_path('tensorboard_logs'), exist_ok=True)
@@ -155,8 +155,8 @@ class checkpoint():
     def save_results(self, dataset, filename, save_list, scale):
         if self.args.save_results:
             filename = self.get_path(
-                'results-{}'.format(dataset.dataset.name),
-                '{}_x{}_'.format(filename, scale)
+                'results-{}'.format(self.args.save),
+                '{}_'.format(filename)
             )
 
             postfix = ('SR', 'LR', 'HR')
@@ -255,11 +255,6 @@ def make_optimizer(args, target):
         optimizer_class = optim.RMSprop
         kwargs_optimizer['eps'] = args.epsilon
 
-    # scheduler
-    milestones = list(map(lambda x: int(x), args.decay.split('-')))
-    kwargs_scheduler = {'milestones': milestones, 'gamma': args.gamma}
-    scheduler_class = lrs.MultiStepLR
-
     class CustomOptimizer(optimizer_class):
         def __init__(self, *args, **kwargs):
             super(CustomOptimizer, self).__init__(*args, **kwargs)
@@ -273,7 +268,7 @@ def make_optimizer(args, target):
         def load(self, load_dir, epoch=1):
             self.load_state_dict(torch.load(self.get_dir(load_dir)))
             if epoch > 1:
-                for _ in range(epoch): self.scheduler.step()
+                for _ in range(epoch): self.scheduler.step() 
 
         def get_dir(self, dir_path):
             return os.path.join(dir_path, 'optimizer.pt')
@@ -282,12 +277,24 @@ def make_optimizer(args, target):
             self.scheduler.step()
 
         def get_lr(self):
-            return self.scheduler.get_last_lr()[0]
+            return self.scheduler.get_lr()[0]
 
         def get_last_epoch(self):
             return self.scheduler.last_epoch
-    
+
     optimizer = CustomOptimizer(trainable, **kwargs_optimizer)
+    
+    # scheduler
+    if args.lr_adjust == 'milestone':
+        decay_num = [int(x)-1 for x in args.decay.split('-')[0:]] # make consistent with epoch
+        milestones = list(map(lambda x: int(x), decay_num))
+        kwargs_scheduler = {'milestones': milestones, 'gamma': args.gamma}
+        scheduler_class = lrs.MultiStepLR
+    elif args.lr_adjust == 'logarithmic':
+        log_gamma = (args.final_lr / args.lr) ** (1 / (args.epochs-1))
+        kwargs_scheduler = {'gamma': log_gamma}
+        scheduler_class = lrs.ExponentialLR
+
     optimizer._register_scheduler(scheduler_class, **kwargs_scheduler)
     return optimizer
 

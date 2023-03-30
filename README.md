@@ -73,6 +73,9 @@ Perhaps the world most convenient pytorch template for medical image restoration
 python main.py --template AAPM --save EDSR-test --scale 1 --reset --save_results --patch_size 64 --ext img --n_GPUs 1 --data_range '1-10/11-12' --loss '1*L1' --dir_data '../dataset_npy/' --batch_size 1 --epochs 100 --using_npy or --using_mat`
 
 **Update log**
+* Mar 30, 2023
+  * Add FBPCONVNet and REDCNN to model dir
+  * Make learning rate can decrease logarithmically
 * Mar 18, 2023
   * Support torch2.0 and wandb
   * Add RIDNet to model dir

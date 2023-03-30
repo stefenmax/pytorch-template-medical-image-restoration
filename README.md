@@ -22,7 +22,7 @@ Perhaps the world most convenient pytorch template for medical image restoration
 * imageio
 * matplotlib
 * tqdm
-* tensorboardX/
+* tensorboardX
 * wandb (Before using wandb, you may need to sign up your own account and revise entity name in trainer.py)
 
 ## Wandb demo

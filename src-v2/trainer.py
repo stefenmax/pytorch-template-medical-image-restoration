@@ -21,7 +21,7 @@ class Trainer():
         self.optimizer = utility.make_optimizer(args, self.model)
         self.log_dir = self.ckp.get_path('tensorboard_logs')
         if self.args.start_wandb:
-            wandb.init(project=args.save, entity="Your own entity")
+            wandb.init(project=args.save, entity="stefen")
         self.current_test_iteration = 0
         utility.count_parameters(self.model, 'This model')
         if self.args.load != '':
@@ -37,7 +37,6 @@ class Trainer():
         self.loss.step()
         epoch = self.optimizer.get_last_epoch() + 1
         lr = self.optimizer.param_groups[0]['lr']
-
         self.ckp.write_log(
             '[Epoch {}]\tLearning rate: {:.2e}'.format(epoch, Decimal(lr))
         )
@@ -191,5 +190,5 @@ class Trainer():
             return True
         else:
             epoch = self.optimizer.get_last_epoch() + 1
-            return epoch >= self.args.epochs
+            return epoch > self.args.epochs
 

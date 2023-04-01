@@ -73,7 +73,7 @@ Perhaps the world most convenient pytorch template for medical image restoration
 -` python main.py --template AAPM --save EDSR-test --scale 1 --reset --save_results --patch_size 64 --ext img --n_GPUs 1 --data_range '1-10/11-12' --loss '1*L1' --dir_data '../dataset_npy/' --batch_size 1 --epochs 100 --using_npy or --using_mat`
 
 ## Test example code
-- `python main.py --template FBPCONV --scale 1 --reset --save_results --save fbpl1 --ext sep --n_GPUs 1 --data_range '1-2/1-12' --dir_data '../sparse_dataset/dataset_sparse_test' --test_only --pre_train '../experiment/fbp/model/model_best.pt'`
+-` python main.py --template FBPCONV --scale 1 --reset --save_results --save fbpl1 --ext sep --n_GPUs 1 --data_range '1-2/1-12' --dir_data '../sparse_dataset/dataset_sparse_test' --test_only --pre_train '../experiment/fbp/model/model_best.pt'`
 
 **Update log**
 * Mar 30, 2023

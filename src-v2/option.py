@@ -106,8 +106,13 @@ parser.add_argument('--gan_k', type=int, default=1,
 # Optimization specifications
 parser.add_argument('--lr', type=float, default=1e-4,
                     help='learning rate')
+parser.add_argument('--final_lr', type=float, default=1e-4,
+                    help='final learning rate')
+parser.add_argument('--lr_adjust', default='milestone',
+                    choices=('milestone', 'logarithmic'),
+                    help='how to decay learning rate')                    
 parser.add_argument('--decay', type=str, default='200',
-                    help='learning rate decay type')
+                    help='learning rate decay type') # for exp --decay 2-3-4 lr will multiply gamma in 2.3.4epoch
 parser.add_argument('--gamma', type=float, default=0.5,
                     help='learning rate decay factor for step decay')
 parser.add_argument('--optimizer', default='ADAM',
@@ -120,7 +125,7 @@ parser.add_argument('--betas', type=tuple, default=(0.9, 0.999),
 parser.add_argument('--epsilon', type=float, default=1e-8,
                     help='ADAM epsilon for numerical stability')
 parser.add_argument('--weight_decay', type=float, default=0,
-                    help='weight decay')
+                    help='weight decay') # affect L2 loss, if you using L2 loss, you can set it to 1e-8
 parser.add_argument('--gclip', type=float, default=0,
                     help='gradient clipping threshold (0 = no clipping)')
 

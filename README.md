@@ -16,7 +16,7 @@ Perhaps the world most convenient pytorch template for medical image restoration
 
 ## Dependencies
 * Python 3.6
-* [conda](https://www.wandb.com/](https://www.anaconda.com/products/distribution)
+* [conda](https://www.anaconda.com/products/distribution)
 * PyTorch >= 1.13.0
 * numpy
 * skimage

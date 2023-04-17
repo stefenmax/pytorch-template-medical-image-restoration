@@ -15,7 +15,7 @@ Perhaps the world most convenient pytorch template for medical image restoration
   * You only need to install the related environment torch2_0.yml file.
 
 ## Dependencies
-* [Anaconda](https://www.anaconda.com/products/distribution)
+* Make sure your [Anaconda](https://www.anaconda.com/products/distribution) is installed.
 * PyTorch >= 1.13.0
 * numpy
 * skimage

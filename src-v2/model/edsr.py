@@ -1,3 +1,5 @@
+## CVPRW-2017-Enhanced Deep Residual Networks for Single Image Super-Resolution
+## https://arxiv.org/abs/1707.02921
 from model import common
 
 import torch.nn as nn

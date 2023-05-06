@@ -22,7 +22,6 @@ Perhaps the world most convenient pytorch template for medical image restoration
 * imageio
 * matplotlib
 * tqdm
-* tensorboardX
 * wandb (Before using wandb, you may need to sign up your own account and revise entity name in trainer.py)
 
 ## Wandb demo
@@ -30,7 +29,7 @@ Perhaps the world most convenient pytorch template for medical image restoration
 
 ## Feature
 
-- TensorBoardX /[wandb](https://www.wandb.com/) support (suggest using wandb, tensorboard is not well tested)
+- [wandb](https://www.wandb.com/) support
 - Training state and network checkpoint saving, loading
     - Training state includes not only network weights, but also optimizer, step, epoch.
     - Checkpoint includes the last and best one(based on calculation of PSNR). This could be used for inference. 
@@ -76,6 +75,9 @@ Perhaps the world most convenient pytorch template for medical image restoration
 - `python main.py --template FBPCONV --scale 1 --reset --save_results --save fbpl1 --ext sep --n_GPUs 1 --data_range '1-2/1-12' --dir_data '../sparse_dataset/dataset_sparse_test' --test_only --pre_train '../experiment/fbp/model/model_best.pt'`
 
 **Update log**
+* May 6, 2023
+ * Changed the default image processing from 3-channel to 1-channel
+ * Removed the Tensorboard module
 * Mar 30, 2023
   * Add FBPCONVNet and REDCNN to model dir
   * Make learning rate can decrease logarithmically
@@ -86,6 +88,7 @@ Perhaps the world most convenient pytorch template for medical image restoration
 
 **Future scopes**
 * Support dcm format data
+* Support WGAN-VGG model
 ## Inspired by
 
 I referred [EDSR's official implementation](https://github.com/sanghyun-son/EDSR-PyTorch) when crafting this template, so don't be surprised if you find some code is similar.

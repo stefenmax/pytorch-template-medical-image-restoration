@@ -151,8 +151,6 @@ parser.add_argument('--save_results', action='store_true',
                     help='save output results')
 parser.add_argument('--save_gt', action='store_true',
                     help='save low-resolution and high-resolution images together')
-parser.add_argument('--start_tensorboard', action='store_true',
-                    help = 'choose to start tensorboard or not')
 parser.add_argument('--start_wandb', action='store_true',
                     help = 'choose to start wandb or not')
                     

@@ -1,13 +1,12 @@
 import os
 import math
 from decimal import Decimal
-from tensorboardX import SummaryWriter
 import utility
 import numpy as np
 import torch
 import torch.nn.utils as utils
 from tqdm import tqdm
-import wandb
+
 
 class Trainer():
     def __init__(self, args, loader, my_model, my_loss, ckp):
@@ -21,6 +20,7 @@ class Trainer():
         self.optimizer = utility.make_optimizer(args, self.model)
         self.log_dir = self.ckp.get_path('tensorboard_logs')
         if self.args.start_wandb:
+            import wandb
             wandb.init(project=args.save, entity="stefen")
         self.current_test_iteration = 0
         utility.count_parameters(self.model, 'This model')
@@ -53,8 +53,6 @@ class Trainer():
             sr = self.model(lr, 0)
             loss = self.loss(sr, hr)
             losses.append(loss.item())
-            if self.args.start_tensorboard:
-                writer.add_scalar('loss', loss, batch)
             loss.backward()
             if self.args.gclip > 0:
                 utils.clip_grad_value_(

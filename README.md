@@ -76,8 +76,8 @@ Perhaps the world most convenient pytorch template for medical image restoration
 
 **Update log**
 * May 6, 2023
- * Changed the default image processing from 3-channel to 1-channel
- * Removed the Tensorboard module
+  * Changed the default image processing from 3-channel to 1-channel
+  * Removed the Tensorboard module
 * Mar 30, 2023
   * Add FBPCONVNet and REDCNN to model dir
   * Make learning rate can decrease logarithmically

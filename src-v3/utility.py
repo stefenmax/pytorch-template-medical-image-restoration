@@ -80,8 +80,6 @@ class checkpoint():
         for d in args.data_test:
             os.makedirs(self.get_path('results-{}'.format(self.args.save)), exist_ok=True)
         open_type = 'a' if os.path.exists(self.get_path('log.txt'))else 'w'
-        if args.start_tensorboard:
-            os.makedirs(self.get_path('tensorboard_logs'), exist_ok=True)
         self.log_file = open(self.get_path('log.txt'), open_type)
         with open(self.get_path('config.txt'), open_type) as f:
             f.write(now + '\n\n')

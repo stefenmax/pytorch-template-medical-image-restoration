@@ -60,7 +60,8 @@ Perhaps the world most convenient pytorch template for medical image restoration
 
 
 
-## Train example code(The following is for linux, if you are using windows, please remove '', for example --dir_data ../dataset/)
+## Train example code
+### (The following is for linux, if you are using windows, please remove '', for example --dir_data ../dataset/)
 ### For png file
 - `python main.py --template AAPM --save EDSR --scale 1 --reset --save_results --patch_size 64 --ext sep --n_GPUs 1 --data_range '1-10/11-12' --loss '1*L1' --dir_data '../dataset/' --batch_size 8 --epochs 100 --start_wandb`
 ### For mat or npy file

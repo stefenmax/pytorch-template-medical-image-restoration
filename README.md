@@ -63,13 +63,13 @@ Perhaps the world most convenient pytorch template for medical image restoration
 ## Train example code
 ### (The following is for linux, if you are using windows, please remove '', for example --dir_data ../dataset/)
 ### For png file
-- `python main.py --template AAPM --save EDSR --scale 1 --reset --save_results --patch_size 64 --ext sep --n_GPUs 1 --data_range '1-10/11-12' --loss '1*L1' --dir_data '../dataset/' --batch_size 8 --epochs 100 --start_wandb`
+- `python main.py --template FBPCONV --save FBP --scale 1 --reset --save_results --patch_size 64 --ext sep --n_GPUs 1 --data_range '1-10/11-12' --loss '1*L1' --dir_data '../dataset/' --batch_size 8 --epochs 100 --start_wandb`
 ### For mat or npy file
 #### using numpy
-- `python main.py --template AAPM --save EDSR-test --scale 1 --reset --save_results --patch_size 64 --ext img --n_GPUs 1 --data_range '1-10/11-12' --loss '1*L1' --dir_data '../dataset_npy/' --batch_size 1 --epochs 100 --using_npy or --using_mat`
+- `python main.py --template FBPCONV --save FBP-npy/mat --scale 1 --reset --save_results --patch_size 64 --ext img --n_GPUs 1 --data_range '1-10/11-12' --loss '1*L1' --dir_data '../dataset_npy/' --batch_size 1 --epochs 100 --using_npy or --using_mat`
 
 ## Test example code
-- `python main.py --template FBPCONV --scale 1 --reset --save_results --save fbpl1 --ext sep --n_GPUs 1 --data_range '1-2/1-12' --dir_data '../sparse_dataset/dataset_sparse_test' --test_only --pre_train '../experiment/fbp/model/model_best.pt'`
+- `python main.py --template FBPCONV --scale 1 --reset --save_results --save fbpl1 --ext sep --n_GPUs 1 --data_range '1-2/1-12' --dir_data '../dataset' --test_only --pre_train '../experiment/FBP/model/model_best.pt'`
 
 **Update log**
 * May 6, 2023

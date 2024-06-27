@@ -69,7 +69,7 @@ Perhaps the world most convenient pytorch template for medical image restoration
 - `python main.py --template FBPCONV --save FBP-npy/mat --scale 1 --reset --save_results --patch_size 64 --ext img --n_GPUs 1 --data_range '1-10/11-12' --loss '1*L1' --dir_data '../dataset_npy/' --batch_size 1 --epochs 100 --using_npy or --using_mat`
 
 ## Test example code
-- `python main.py --template FBPCONV --scale 1 --reset --save_results --save fbpl1 --ext sep --n_GPUs 1 --data_range '1-2/1-12' --dir_data '../dataset' --test_only --pre_train '../experiment/FBP/model/model_best.pt'`
+- `python main.py --template FBPCONV --scale 1 --reset --save_results --save FBP_XCAT_test --ext img --n_GPUs 1 --data_range '1-351/1-351' --dir_data '../dataset/XCAT_train' --test_only --pre_train '../experiment/FBPCONV/model/model_best.pt' --using_npy`
 
 **Update log**
 * May 6, 2023
